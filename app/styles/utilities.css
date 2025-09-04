@@ -1,0 +1,25 @@
+/* Gold text gradient */
+.text-gold {
+  background-image: linear-gradient(to right, #C9A750, #E1CE9E, #C9A750);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Buttons */
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-3 rounded-lg px-6 py-3 text-sm font-medium text-black rounded-xl;
+  background-color: #C9A750;
+}
+.btn-primary:hover { filter: brightness(1.05); }
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-3 rounded-lg px-6 py-3 text-sm font-medium border rounded-xl;
+  border-color: gold;
+  color:white;
+  background-color:black;
+}
+.btn-secondary:hover { 
+    background-color:rgb(14, 14, 14);
+    border-color: white;
+}
