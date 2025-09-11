@@ -11,6 +11,7 @@ import { bsc } from "wagmi/chains"; // 👈 add this
 const queryClient = new QueryClient();
 
 export default function Providers({ children }: { children: React.ReactNode }) {
+
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
