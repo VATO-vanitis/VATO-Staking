@@ -69,9 +69,9 @@ const CONFIG = {
   },
   copy: {
     subhead:
-      "Hold your VATO for a set time and receive extra Tokens every month",
+      "Stake your VATO for a set time to unlock utility multipliers and periodic VATO allocations",
     disclaimer:
-      "Using this page means you accept our terms. Benefits are variable and not guaranteed.",
+      "$VATO is a utility token. All rewards are structured as loyalty bonuses and access benefits within the vanitis & vasouk ecosystem. These include: <br/> 1% Loyalty Points in VATO earned on every vasouk marketplace purchase,<br/>quarterly stablecoin loyalty bonuses for ProVAP members funded from vasouk marketplace fees,<br/>staking multipliers and allocations for long-term holders, and <br> NFT boosts that amplify staking and commission rates. <br/> Rewards are funded through vasouk marketplace fees and allocations from VATO trading taxes. They are not dividends, profit shares, or investment returns. Participation provides access, multipliers, and loyalty benefits, not ownership rights. <br> Program Rules & Governance <br/> Eligibility and reward levels depend on program rules, free ProVAP membership, and governance approval. All schedules, allocations, and mechanics may be adjusted by governance to ensure sustainability and compliance. <br/> Regulatory Status <br> VATO has not yet been registered, licensed, or approved by the Dubai Virtual Assets Regulatory Authority (VARA), the EU under MiCA, or any other authority. This project is in its pre-registration phase. Users are responsible for ensuring their own compliance with applicable local laws. <br> Risk Note <br> Digital tokens are volatile. Rewards are not guaranteed. Taxes, reporting, and regulatory obligations are the responsibility of each participant.",
   },
   ipfsGateway: "https://nft.vato.international/ipfs/",
   nftMarketUrl:
@@ -2411,11 +2411,11 @@ useEffect(() => {
             <div className="grid grid-cols-1 sm:grid-cols-3 mt-3 gap-3">{planCards}</div>
 
             <div className="text-s opacity-100 text-center mt-3">
-              Base {baseApyPct.toFixed(2)}% + NFT Boost {boostApyPct.toFixed(2)}% = <b>{totalApyPct.toFixed(2)}% APY</b>
+              Base multiplier {baseApyPct.toFixed(2)}% + NFT Boost {boostApyPct.toFixed(2)}% = <b>{totalApyPct.toFixed(2)}% effective staking multiplier.</b>
             </div>
 
             <div className="mt-3 flex items-center justify-center gap-3">
-              <div className="text-l opacity-100">Your monthly Benefit: <b>{monthlyPreview}</b></div>
+              <div className="text-l opacity-100">Monthly VATO allocation (est.) <b>{monthlyPreview}</b></div>
             </div>
 
             <div className="mt-4">
@@ -2499,7 +2499,7 @@ useEffect(() => {
               {!userStakes || userStakes.filter((s) => s.active).length === 0 ? (
                 <div className="rounded-2xl">
                   <div className="p-1 text-center">
-                    <div className="text-lg opacity-100 text-center">Let your tokens grow, your monthly benefits are waiting.</div>
+                    <div className="text-lg opacity-100 text-center">Activate your plan and track your allocations in the dashboard.</div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
@@ -2687,7 +2687,7 @@ useEffect(() => {
               title="What is Staking?"
               width="100%"
               height="100%"
-              src="https://www.youtube.com/embed/hRLC6xIpIZY?si=9Zty8zaUGTsMmY4I"
+              src="https://youtu.be/GhpIprKFHoU"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />
