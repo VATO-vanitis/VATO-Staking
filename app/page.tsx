@@ -68,11 +68,21 @@ const CONFIG = {
     6: { name: "vANIMAL", img: "/tiers/6.png" },
   },
   copy: {
-    subhead:
-      "Stake your VATO for a set time to unlock utility multipliers and periodic VATO allocations",
-    disclaimer:
-      "$VATO is a utility token. All rewards are structured as loyalty bonuses and access benefits within the vanitis & vasouk ecosystem. These include: <br/> 1% Loyalty Points in VATO earned on every vasouk marketplace purchase,<br/>quarterly stablecoin loyalty bonuses for ProVAP members funded from vasouk marketplace fees,<br/>staking multipliers and allocations for long-term holders, and <br> NFT boosts that amplify staking and commission rates. <br/> Rewards are funded through vasouk marketplace fees and allocations from VATO trading taxes. They are not dividends, profit shares, or investment returns. Participation provides access, multipliers, and loyalty benefits, not ownership rights. <br> Program Rules & Governance <br/> Eligibility and reward levels depend on program rules, free ProVAP membership, and governance approval. All schedules, allocations, and mechanics may be adjusted by governance to ensure sustainability and compliance. <br/> Regulatory Status <br> VATO has not yet been registered, licensed, or approved by the Dubai Virtual Assets Regulatory Authority (VARA), the EU under MiCA, or any other authority. This project is in its pre-registration phase. Users are responsible for ensuring their own compliance with applicable local laws. <br> Risk Note <br> Digital tokens are volatile. Rewards are not guaranteed. Taxes, reporting, and regulatory obligations are the responsibility of each participant.",
-  },
+  subhead:
+    "Stake VATO for a fixed term to access utility multipliers and periodic VATO allocations.",
+  disclaimer:
+    "<strong>Utility Nature</strong><br/>VATO is a utility token. All benefits are loyalty- and access-based within the vanitis &amp; vasouk ecosystem and are not dividends, profit shares, or investment returns.<br/><br/>" +
+    "<strong>What You Can Receive</strong><br/><ul>" +
+      "<li><b>1% Loyalty Points</b> in VATO on every eligible vasouk marketplace purchase.</li>" +
+      "<li><b>Quarterly loyalty bonuses</b> for ProVAP members funded from vasouk marketplace fees (stablecoin-denominated).</li>" +
+      "<li><b>Staking multipliers &amp; time-based allocations</b> for long-term VATO holders.</li>" +
+      "<li><b>NFT boosts</b> that can amplify staking multipliers and promoter commission rates per program rules.</li>" +
+    "</ul>" +
+    "<em>Funding sources:</em> vasouk marketplace fees (PRP/ProVAP pool) and designated allocations from VATO transaction-fee mechanics.<br/><br/>" +
+    "<strong>Program Rules &amp; Governance</strong><br/>ProVAP membership is free, and eligibility is based on holding or staking VATO during the snapshot window. Eligibility, tiers, and reward levels depend on published program rules and governance approval. Schedules, allocations, and parameters may be adjusted by governance to support sustainability and compliance.<br/><br/>" +
+    "<strong>Regulatory Status</strong><br/>VATO has not yet been registered, licensed, or approved by the Dubai Virtual Assets Regulatory Authority (VARA), the EU under MiCA, or any other authority. The project is in a pre-registration phase. Participants are responsible for complying with applicable local laws.<br/><br/>" +
+    "<strong>Risk Note</strong><br/>Digital tokens can be volatile; reward amounts and timing may vary and are not guaranteed. Taxes, reporting, and any regulatory obligations remain each participant’s responsibility."
+},
   ipfsGateway: "https://nft.vato.international/ipfs/",
   nftMarketUrl:
     process.env.NEXT_PUBLIC_NFT_MARKET_URL || "https://vato.international/nft",
