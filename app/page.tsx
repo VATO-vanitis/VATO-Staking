@@ -71,14 +71,16 @@ const CONFIG = {
   subhead:
     "Stake VATO for a fixed term to access utility multipliers and periodic VATO allocations.",
   disclaimer:
-    "<strong>Utility Nature</strong><br/>VATO is a utility token. All benefits are loyalty- and access-based within the vanitis &amp; vasouk ecosystem and are not dividends, profit shares, or investment returns.<br/><br/>" +
-    "<strong>What You Can Receive</strong><br/><ul>" +
+    "<strong>Utility Token Notice</strong><br/>VATO is a utility token. All benefits are loyalty- and access-based within the vanitis &amp; vasouk ecosystem and are not dividends, profit shares, or investment returns.<br/><br/>" +
+    "<strong>What You Can Receive</strong>" +
+    "<ul class='list-disc pl-5 space-y-1 mt-1'>" +
       "<li><b>1% Loyalty Points</b> in VATO on every eligible vasouk marketplace purchase.</li>" +
       "<li><b>Quarterly loyalty bonuses</b> for ProVAP members funded from vasouk marketplace fees (stablecoin-denominated).</li>" +
       "<li><b>Staking multipliers &amp; time-based allocations</b> for long-term VATO holders.</li>" +
       "<li><b>NFT boosts</b> that can amplify staking multipliers and promoter commission rates per program rules.</li>" +
     "</ul>" +
-    "<em>Funding sources:</em> vasouk marketplace fees (PRP/ProVAP pool) and designated allocations from VATO transaction-fee mechanics.<br/><br/>" +
+    "<div class='mt-2'><em>Funding sources:</em> vasouk marketplace fees (PRP/ProVAP pool) and designated allocations from VATO transaction-fee mechanics.</div>" +
+    "<hr class='my-3 border-gold/20'/>" +
     "<strong>Program Rules &amp; Governance</strong><br/>ProVAP membership is free, and eligibility is based on holding or staking VATO during the snapshot window. Eligibility, tiers, and reward levels depend on published program rules and governance approval. Schedules, allocations, and parameters may be adjusted by governance to support sustainability and compliance.<br/><br/>" +
     "<strong>Regulatory Status</strong><br/>VATO has not yet been registered, licensed, or approved by the Dubai Virtual Assets Regulatory Authority (VARA), the EU under MiCA, or any other authority. The project is in a pre-registration phase. Participants are responsible for complying with applicable local laws.<br/><br/>" +
     "<strong>Risk Note</strong><br/>Digital tokens can be volatile; reward amounts and timing may vary and are not guaranteed. Taxes, reporting, and any regulatory obligations remain each participant’s responsibility."
@@ -2615,7 +2617,11 @@ useEffect(() => {
       </Card>
 
       {/* Footers & Modals */}
-      <div className="mt-5 text-xs text-center opacity-100">{CONFIG.copy.disclaimer}</div>
+      <div
+  className="mt-8 mx-auto max-w-3xl rounded-2xl border border-gold/60 bg-black/50 p-5 text-left text-xs leading-relaxed"
+  aria-label="Program Disclaimer"
+  dangerouslySetInnerHTML={{ __html: CONFIG.copy.disclaimer }}
+/>
 
       {/* DEXTOOLS POPUP */}
       <Modal open={priceModalOpen} onClose={() => setPriceModalOpen(false)} className="p-4">
@@ -2697,7 +2703,7 @@ useEffect(() => {
               title="What is Staking?"
               width="100%"
               height="100%"
-              src="https://youtu.be/GhpIprKFHoU"
+              src="https://www.youtube.com/embed/GhpIprKFHoU?si=FrEie0_s-Vn-q6ti"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />
