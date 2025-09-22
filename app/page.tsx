@@ -69,20 +69,20 @@ const CONFIG = {
   },
   copy: {
   subhead:
-    "Stake VATO for a fixed term to access utility multipliers and periodic VATO allocations.",
+    "Stake $VATO for a fixed term to access utility multipliers and periodic $VATO allocations.",
   disclaimer:
-    "<strong>Utility Token Notice</strong><br/>VATO is a utility token. All benefits are loyalty- and access-based within the vanitis &amp; vasouk ecosystem and are not dividends, profit shares, or investment returns.<br/><br/>" +
+    "<strong>Utility Token Notice</strong><br/>$VATO is a utility token. All benefits are loyalty- and access-based within the vanitis &amp; vasouk ecosystem and are not dividends, profit shares, or investment returns.<br/><br/>" +
     "<strong>What You Can Receive</strong>" +
     "<ul class='list-disc pl-5 space-y-1 mt-1'>" +
-      "<li><b>1% Loyalty Points</b> in VATO on every eligible vasouk marketplace purchase.</li>" +
+      "<li><b>1% Loyalty Points</b> in $VATO on every eligible vasouk marketplace purchase.</li>" +
       "<li><b>Quarterly loyalty bonuses</b> for ProVAP members funded from vasouk marketplace fees (stablecoin-denominated).</li>" +
-      "<li><b>Staking multipliers &amp; time-based allocations</b> for long-term VATO holders.</li>" +
+      "<li><b>Staking multipliers &amp; time-based allocations</b> for long-term $VATO holders.</li>" +
       "<li><b>NFT boosts</b> that can amplify staking multipliers and promoter commission rates per program rules.</li>" +
     "</ul>" +
-    "<div class='mt-2'><em>Funding sources:</em> vasouk marketplace fees (PRP/ProVAP pool) and designated allocations from VATO transaction-fee mechanics.</div>" +
+    "<div class='mt-2'><em>Funding sources:</em> vasouk marketplace fees (PRP/ProVAP pool) and designated allocations from $VATO transaction-fee mechanics.</div>" +
     "<hr class='my-3 border-gold/20'/>" +
-    "<strong>Program Rules &amp; Governance</strong><br/>ProVAP membership is free, and eligibility is based on holding or staking VATO during the snapshot window. Eligibility, tiers, and reward levels depend on published program rules and governance approval. Schedules, allocations, and parameters may be adjusted by governance to support sustainability and compliance.<br/><br/>" +
-    "<strong>Regulatory Status</strong><br/>VATO has not yet been registered, licensed, or approved by the Dubai Virtual Assets Regulatory Authority (VARA), the EU under MiCA, or any other authority. The project is in a pre-registration phase. Participants are responsible for complying with applicable local laws.<br/><br/>" +
+    "<strong>Program Rules &amp; Governance</strong><br/>ProVAP membership is free. PRP calculations use your lowest $VATO balance (held + staked) in the registered wallet across the quarter compared to the total circulating supply. Eligibility, tiers, and reward levels depend on published program rules and governance approval. Schedules, allocations, and parameters may be adjusted by governance to support sustainability and compliance.<br/><br/>" +
+    "<strong>Regulatory Status</strong><br/>$VATO has not yet been registered, licensed, or approved by the Dubai Virtual Assets Regulatory Authority (VARA), the EU under MiCA, or any other authority. The project is in a pre-registration phase. Participants are responsible for complying with applicable local laws.<br/><br/>" +
     "<strong>Risk Note</strong><br/>Digital tokens can be volatile; reward amounts and timing may vary and are not guaranteed. Taxes, reporting, and any regulatory obligations remain each participant’s responsibility."
 },
   ipfsGateway: "https://nft.vato.international/ipfs/",
@@ -709,7 +709,7 @@ async function readUserStakesCompat(
 }
 
 /* =========================================================
- * AmountInput (commas + inline "VATO" suffix with proper caret)
+ * AmountInput (commas + inline "$VATO" suffix with proper caret)
  * ======================================================= */
 function normalizeRawNumeric(s: string) {
   const cleaned = s.replace(/[^\d.]/g, "");
@@ -743,7 +743,7 @@ type AmountInputProps = {
 function AmountInput({
   valueRaw,
   onChangeRaw,
-  symbol = "VATO",
+  symbol = "$VATO",
   className,
   placeholder,
   disabled,
@@ -890,7 +890,7 @@ function CalculatorModal({
   tokenPriceUsd,
   plans,
   tierBonusBps = CONFIG.tierBonusBps,
-  symbol = "VATO",
+  symbol = "$VATO",
   allTiersBonusBps = 0,
   maxTotalBoostBps = 10_000,
 }: {
@@ -1226,7 +1226,7 @@ function StakeCard({
     <div className="rounded-2xl border border-gold bg-black p-4">
       {/* Header */}
       <div className="flex items-baseline justify-between">
-        <div className="text-lg opacity-100">Staked VATO</div>
+        <div className="text-lg opacity-100">Staked $VATO</div>
         <div className="text-right">
           <div className="text-lg font-semibold">
             {stakedVato.toLocaleString(undefined, {
@@ -1988,16 +1988,17 @@ useEffect(() => {
     }
   })();
 
-  // Wallet & APY stats
-  const walletVato = Number(formatUnits(balance, decimals));
-  const walletVatoFormatted = walletVato.toLocaleString(undefined, {
-    maximumFractionDigits: 2,
-  });
-  const walletUsd = priceUsd != null ? walletVato * priceUsd : null;
-  const walletUsdFormatted =
-    walletUsd != null && isFinite(walletUsd)
-      ? `$${walletUsd.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
-      : "—";
+  // Wallet & APY stats (INCLUSIVE of staked)
+const totalHeldVatoWei = (balance ?? 0n) + (userStakedActiveTotal ?? 0n);
+const walletVato = Number(formatUnits(totalHeldVatoWei, decimals));
+const walletVatoFormatted = walletVato.toLocaleString(undefined, {
+  maximumFractionDigits: 2,
+});
+const walletUsd = priceUsd != null ? walletVato * priceUsd : null;
+const walletUsdFormatted =
+  walletUsd != null && isFinite(walletUsd)
+    ? `$${walletUsd.toLocaleString(undefined, { maximumFractionDigits: 2 })}`
+    : "—";
 
   const totalStakedFormatted = useMemo(() => {
     if (totalStaked == null) return "—";
@@ -2052,6 +2053,16 @@ useEffect(() => {
   const activeStakeCount =
     userStakes?.filter((st: any) => st?.active).length ?? 0;
 
+  // Total staked (active) amount for this user (bigint)
+const userStakedActiveTotal = React.useMemo(
+  () =>
+    (userStakes ?? []).reduce<bigint>(
+      (acc, s) => (s?.active ? acc + BigInt(s.amount) : acc),
+      0n
+    ),
+  [userStakes]
+);
+
   // actions
   async function doStake() {
     try {
@@ -2078,7 +2089,7 @@ useEffect(() => {
       })) as bigint;
 
       if (currentAllowance < amt) {
-        setStatus({ kind: "info", text: "Approving VATO for staking…" });
+        setStatus({ kind: "info", text: "Approving $VATO for staking…" });
         setIsApproving(true);
         const approveHash = await write.writeContractAsync({
           address: CONFIG.contracts.vato.address,
@@ -2418,7 +2429,7 @@ useEffect(() => {
               ))}
             </div>
 
-            {amountExceeds && <div className="mt-3 text-s text-center text-red-500">VATO Amount not in Wallet.</div>}
+            {amountExceeds && <div className="mt-3 text-s text-center text-red-500">$VATO Amount not in Wallet.</div>}
 
             <div className="grid grid-cols-1 sm:grid-cols-3 mt-3 gap-3">{planCards}</div>
 
@@ -2427,7 +2438,7 @@ useEffect(() => {
             </div>
 
             <div className="mt-3 flex items-center justify-center gap-3">
-              <div className="text-l opacity-100">Monthly VATO allocation (est.) <b>{monthlyPreview}</b></div>
+              <div className="text-l opacity-100">Monthly $VATO allocation (est.) <b>{monthlyPreview}</b></div>
             </div>
 
             <div className="mt-4">
@@ -2451,10 +2462,10 @@ useEffect(() => {
           </CardHeader>
 
           <CardContent>
-            {/* VATO Balance from Wallet (Heading) */}
+            {/* $VATO Balance from Wallet (Heading) */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="p-1 text-center">
-                <div className="text-s opacity-100">Your VATO Balance</div>
+                <div className="text-s opacity-100">Your $VATO Balance</div>
               </div>
 
               {/* Current APY (Heading) */}
@@ -2516,7 +2527,7 @@ useEffect(() => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
                     <div className="rounded-2xl border border-gold mt-2 p-2 text-white text-center max-w-xl">Connect Wallet</div>
-                    <div className="rounded-2xl border border-gold mt-2 p-2 text-white text-center max-w-xl">Insert VATO</div>
+                    <div className="rounded-2xl border border-gold mt-2 p-2 text-white text-center max-w-xl">Insert $VATO</div>
                     <div className="rounded-2xl border border-gold mt-2 p-2 text-white text-center max-w-xl">Choose Duration</div>
                     <div className="rounded-2xl border border-gold mt-2 p-2 text-white text-center max-w-xl">Approve & Activate</div>
                   </div>
@@ -2628,7 +2639,7 @@ useEffect(() => {
         <div className="p-4">
           <h3 className="text-xl font-semibold text-center mb-2">DEX Chart</h3>
           <p className="text-sm opacity-100 text-center mb-3">
-            Price derived from V2 pair reserves (VATO/WBNB and WBNB/BUSD). Thin liquidity may cause higher volatility.
+            Price derived from V2 pair reserves ($VATO/WBNB and WBNB/BUSD). Thin liquidity may cause higher volatility.
           </p>
           <div className="w-full overflow-hidden rounded-xl border border-gold">
             <iframe
