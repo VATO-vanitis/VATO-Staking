@@ -758,10 +758,8 @@ function AmountInput({
     const caret = input.selectionStart ?? oldDisplay.length;
 
     const digitsLeft = countDigits(oldDisplay.slice(0, caret));
-    const withoutSuffix = oldDisplay.replace(
-      new RegExp(`\\s*${symbol}$`, "i"),
-      ""
-    );
+    const escaped = (symbol ?? "").replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+const withoutSuffix = oldDisplay.replace(new RegExp(`\\s*${escaped}$`, "i"), "");
     const asRaw = normalizeRawNumeric(withoutSuffix.replace(/,/g, ""));
 
     if (asRaw !== "" && !/^\d*\.?\d*$/.test(asRaw)) {
@@ -1988,6 +1986,16 @@ useEffect(() => {
     }
   })();
 
+  // Sum of user's currently active staked amounts (wei)
+const userStakedActiveTotal = React.useMemo(
+  () =>
+    (userStakes ?? []).reduce<bigint>(
+      (acc, s) => (s?.active ? acc + BigInt(s.amount) : acc),
+      0n
+    ),
+  [userStakes]
+);
+
   // Wallet & APY stats (INCLUSIVE of staked)
 const totalHeldVatoWei = (balance ?? 0n) + (userStakedActiveTotal ?? 0n);
 const walletVato = Number(formatUnits(totalHeldVatoWei, decimals));
@@ -2052,16 +2060,6 @@ const walletUsdFormatted =
   // COUNT active stakes for conditional "Collect All"
   const activeStakeCount =
     userStakes?.filter((st: any) => st?.active).length ?? 0;
-
-  // Total staked (active) amount for this user (bigint)
-const userStakedActiveTotal = React.useMemo(
-  () =>
-    (userStakes ?? []).reduce<bigint>(
-      (acc, s) => (s?.active ? acc + BigInt(s.amount) : acc),
-      0n
-    ),
-  [userStakes]
-);
 
   // actions
   async function doStake() {
